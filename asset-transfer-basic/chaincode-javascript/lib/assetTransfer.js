@@ -14,6 +14,11 @@ const { Contract } = require('fabric-contract-api');
 class AssetTransfer extends Contract {
 
     async InitLedger(ctx) {
+
+
+        console.log("Log para informar que el ledger ah sido inicializado.....");
+
+
         const assets = [
             {
                 ID: 'asset1',
