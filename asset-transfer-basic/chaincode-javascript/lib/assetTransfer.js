@@ -15,9 +15,8 @@ class AssetTransfer extends Contract {
 
     async InitLedger(ctx) {
 
-
         console.log("Log para informar que el ledger ah sido inicializado.....");
-
+        console.log("Log SEGUNDO LOG PARA VALIDAR SI EL UPDATE DEL SMART CONTRACT FUNCIONA......");
 
         const assets = [
             {
@@ -167,6 +166,77 @@ class AssetTransfer extends Contract {
         }
         return JSON.stringify(allResults);
     }
+
+
+    
+
+    /*
+        Lógica Desafios.
+        Cumplir con los desafíos da tokens.
+        Suma de tokens da un ranking.
+        Ranking define la comisión a ganar.
+
+
+        Ranking va tener niveles que lo determinan los tokens.
+        nivel 1 - tokens 10
+        nivel 2 - tokens 20
+
+        El nivel define que porcentaje de comisión va tener por venta. 
+    */
+
+    async InicializarDesafios(ctx) {
+        const arrayDesafios = [
+            {
+                ID: 'desafio-1',
+                Nombe: 'Ventas mas de 2 licencias',
+                Descripcion: 'Vender mas de 2 licencias',
+                Tokens: 2.5,
+            },
+            {
+                ID: 'desafio-2',
+                Nombe: 'Ventas mas de 4 licencias',
+                Descripcion: 'Vender mas de 4 licencias',
+                Tokens: 5,
+            }
+        ];
+
+        for (const desafio of arrayDesafios) {
+            const desafioExists = await desafioExists(ctx, desafio.ID);
+
+            if (!desafioExists) {
+                desafio.docType = 'desafio';
+                // example of how to write to world state deterministically
+                // use convetion of alphabetic order
+                // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
+                // when retrieving data, in any lang, the order of data will be the same and consequently also the corresonding hash
+                await ctx.stub.putState(desafio.ID, Buffer.from(stringify(sortKeysRecursive(desafio))));
+            }
+        }
+    }
+
+    async desafioExists(ctx, id) {
+        const desafioJSON = await ctx.stub.getState(id);
+        return desafioJSON && desafioJSON.length > 0;
+    }
+    
+
+    async createRecordTXN(ctx, idCanal, idDesafio) {
+        const exists = await this.desafioExists(ctx, idDesafio);
+        if (!exists) {
+            throw new Error(`El desafío con id: ${idDesafio} no existe..`);
+        }
+
+        const registro = {
+            idDesafio: idDesafio,
+            idCanal: idCanal
+        };
+        // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
+        await ctx.stub.putState(id, Buffer.from(stringify(sortKeysRecursive(registro))));
+        return JSON.stringify(registro);
+    }
+
+
+
 }
 
 module.exports = AssetTransfer;

@@ -215,6 +215,26 @@ async function updateNonExistentAsset(contract: Contract): Promise<void>{
     }
 }
 
+
+
+/*
+FUNCIÓN PARA CREAR UN REGISTRO DE QUE UN CANAL COMPLETO UN DESÁFIO.
+*/
+async function createRecordTXN(contract: Contract): Promise<void> {
+    console.log('\n--> Submit Transaction: createRecordTXN, creates new asset with IdDesafio and idCanal arguments');
+
+    await contract.submitTransaction(
+        'createRecordTXN',
+        'desafio-1',
+        '102',
+    );
+
+    console.log('*** Transaction committed successfully');
+}
+ 
+
+
+
 /**
  * envOrDefault() will return the value of an environment variable, or a default value if the variable is undefined.
  */
