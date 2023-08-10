@@ -231,8 +231,8 @@ async function createRecordTXN(contract: Contract): Promise<void> {
 
     await contract.submitTransaction(
         'createRecordTXN',
-        'desafio-1',
         '102',
+        'desafio-1',
     );
 
     console.log('*** Transaction committed successfully');

@@ -188,13 +188,13 @@ class AssetTransfer extends Contract {
         const arrayDesafios = [
             {
                 ID: 'desafio-1',
-                Nombe: 'Ventas mas de 2 licencias',
+                Nombre: 'Ventas mas de 2 licencias',
                 Descripcion: 'Vender mas de 2 licencias',
                 Tokens: 2.5,
             },
             {
                 ID: 'desafio-2',
-                Nombe: 'Ventas mas de 4 licencias',
+                Nombre: 'Ventas mas de 4 licencias',
                 Descripcion: 'Vender mas de 4 licencias',
                 Tokens: 5,
             }
