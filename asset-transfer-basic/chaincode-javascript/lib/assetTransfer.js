@@ -228,7 +228,8 @@ class AssetTransfer extends Contract {
 
         const registro = {
             idDesafio: idDesafio,
-            idCanal: idCanal
+            idCanal: idCanal,
+            docType: 'txnRanking'
         };
         // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
         await ctx.stub.putState(id, Buffer.from(stringify(sortKeysRecursive(registro))));

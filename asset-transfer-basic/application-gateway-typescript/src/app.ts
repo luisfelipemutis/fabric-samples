@@ -85,7 +85,11 @@ async function main(): Promise<void> {
         await readAssetByID(contract);
 
         // Update an asset which does not exist.
-        await updateNonExistentAsset(contract)
+        // await updateNonExistentAsset(contract)
+
+        // inicializar desafios.
+        await createRecordTXN(contract);
+
     } finally {
         gateway.close();
         client.close();
@@ -223,6 +227,8 @@ FUNCIÓN PARA CREAR UN REGISTRO DE QUE UN CANAL COMPLETO UN DESÁFIO.
 async function createRecordTXN(contract: Contract): Promise<void> {
     console.log('\n--> Submit Transaction: createRecordTXN, creates new asset with IdDesafio and idCanal arguments');
 
+    await contract.submitTransaction('InicializarDesafios');
+
     await contract.submitTransaction(
         'createRecordTXN',
         'desafio-1',
@@ -232,6 +238,15 @@ async function createRecordTXN(contract: Contract): Promise<void> {
     console.log('*** Transaction committed successfully');
 }
  
+
+
+
+
+
+
+
+
+
 
 
 
