@@ -201,14 +201,16 @@ class AssetTransfer extends Contract {
         ];
 
         for (const desafio of arrayDesafios) {
-            const desafioExists = await desafioExists(ctx, desafio.ID);
+            console.log("VALIDANDO DESÁFIO -- > " + desafio.ID);
+            const respDesafioExist = await this.desafioExists(ctx, desafio.ID);
 
-            if (!desafioExists) {
+            if (!respDesafioExist) {
                 desafio.docType = 'desafio';
                 // example of how to write to world state deterministically
                 // use convetion of alphabetic order
                 // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
                 // when retrieving data, in any lang, the order of data will be the same and consequently also the corresonding hash
+                console.log("Adicionando desafio al ledger -- > " + stringify(desafio));
                 await ctx.stub.putState(desafio.ID, Buffer.from(stringify(sortKeysRecursive(desafio))));
             }
         }
