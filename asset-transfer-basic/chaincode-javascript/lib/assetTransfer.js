@@ -223,21 +223,23 @@ class AssetTransfer extends Contract {
     
 
     async createRecordTXN(ctx, idCanal, idDesafio) {
-        console.log("LLego una petición para crear un registro al ranking\n");
-        console.log(`Datos -- idCanal: ${idCanal} idDesafio: ${idDesafio}`);
+        console.log("\nLLego una petición para crear un registro al ranking");
+        console.log(`Datos -- idCanal: ${idCanal} idDesafio: ${idDesafio}\n`);
 
         const exists = await this.desafioExists(ctx, idDesafio);
         if (!exists) {
             throw new Error(`El desafío con id: ${idDesafio} no existe..`);
         }
 
+        var idRegister = idDesafio + '-' + idCanal;
         const registro = {
+            ID: idRegister,
             idDesafio: idDesafio,
             idCanal: idCanal,
             docType: 'txnRanking'
         };
         // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
-        await ctx.stub.putState(id, Buffer.from(stringify(sortKeysRecursive(registro))));
+        await ctx.stub.putState(idRegister, Buffer.from(stringify(sortKeysRecursive(registro))));
         return JSON.stringify(registro);
     }
 
