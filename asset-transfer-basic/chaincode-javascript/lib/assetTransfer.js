@@ -246,7 +246,6 @@ class AssetTransfer extends Contract {
 
 
     async GetAllRanking(ctx) {
-        console.log("Obteniendo Ranking ---");
         const allResults = [];
         // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.
         const iterator = await ctx.stub.getStateByRange('', '');
@@ -256,7 +255,10 @@ class AssetTransfer extends Contract {
             let record;
             try {
                 record = JSON.parse(strValue);
-                allResults.push(record);
+                console.log(record);
+                if (record.docType && record.docType === "txnRanking") {
+                    allResults.push(record);
+                }
             } catch (err) {
                 console.log(err);
             }
