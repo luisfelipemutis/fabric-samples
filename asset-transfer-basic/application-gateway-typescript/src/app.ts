@@ -235,13 +235,13 @@ async function createRecordTXN(contract: Contract): Promise<void> {
         'desafio-1',
     );
 
+    const resultBytes = await contract.evaluateTransaction('GetAllRanking');
+    const resultJson = utf8Decoder.decode(resultBytes);
+    const result = JSON.parse(resultJson);
+    console.log('*** Result - Ranking:', result);
+
     console.log('*** Transaction committed successfully');
 }
- 
-
-
-
-
 
 
 

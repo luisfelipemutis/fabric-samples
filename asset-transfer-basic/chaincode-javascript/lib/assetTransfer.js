@@ -240,6 +240,25 @@ class AssetTransfer extends Contract {
 
 
 
+    async GetAllRanking(ctx) {
+        console.log("Obteniendo Ranking ---");
+        const allResults = [];
+        // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.
+        const iterator = await ctx.stub.getStateByRange('', '');
+        let result = await iterator.next();
+        while (!result.done) {
+            const strValue = Buffer.from(result.value.value.toString()).toString('utf8');
+            let record;
+            try {
+                record = JSON.parse(strValue);
+                allResults.push(record);
+            } catch (err) {
+                console.log(err);
+            }
+            result = await iterator.next();
+        }
+        return JSON.stringify(allResults);
+    }
 }
 
 module.exports = AssetTransfer;
