@@ -223,6 +223,9 @@ class AssetTransfer extends Contract {
     
 
     async createRecordTXN(ctx, idCanal, idDesafio) {
+        console.log("LLego una petición para crear un registro al ranking\n");
+        console.log(`Datos -- idCanal: ${idCanal} idDesafio: ${idDesafio}`);
+
         const exists = await this.desafioExists(ctx, idDesafio);
         if (!exists) {
             throw new Error(`El desafío con id: ${idDesafio} no existe..`);
