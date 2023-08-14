@@ -114,8 +114,7 @@ async function createChallenge(contract: Contract): Promise<void> {
         `asset${Date.now()}`,
         'desafío test 001',
         'descripcion 001',
-        '5 tokens',
-        '1300',
+        '5 tokens'
     );
 
     console.log('*** Transaction committed successfully');
