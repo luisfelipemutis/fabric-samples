@@ -2,7 +2,11 @@
   "name": "chaincode-js-esquema-incentivos",
   "version": "1.0.0",
   "description": "contrato implementado en javascript para esquema de incentivos.",
-  "main": ".eslintrc.js",
+  "main": "index.js",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=5"
+  },
   "directories": {
     "lib": "lib"
   },
