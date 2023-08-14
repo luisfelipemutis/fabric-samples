@@ -28,6 +28,11 @@ class AssetTransfer extends Contract {
         return JSON.stringify(registro);
     }
 
+    async desafioExists(ctx, id) {
+        const desafioJSON = await ctx.stub.getState(id);
+        return desafioJSON && desafioJSON.length > 0;
+    }
+
     async GetRecordByDocType(ctx, paramDocType) {
         const allResults = [];
         // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.
@@ -48,6 +53,7 @@ class AssetTransfer extends Contract {
         }
         return JSON.stringify(allResults);
     }
+
 }
 
 
