@@ -1,0 +1,43 @@
+{
+  "name": "chaincode-js-esquema-incentivos",
+  "version": "1.0.0",
+  "description": "contrato implementado en javascript para esquema de incentivos.",
+  "main": ".eslintrc.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "lint": "eslint *.js */**.js",
+    "pretest": "npm run lint",
+    "test": "nyc mocha --recursive",
+    "start": "fabric-chaincode-node start"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "mocha": "^8.0.1",
+    "nyc": "^14.1.1",
+    "sinon": "^6.0.0",
+    "sinon-chai": "^3.2.0"
+  },
+  "nyc": {
+    "exclude": [
+      "coverage/**",
+      "test/**",
+      "index.js",
+      ".eslintrc.js"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "all": true,
+    "check-coverage": true,
+    "statements": 100,
+    "branches": 100,
+    "functions": 100,
+    "lines": 100
+  }
+}
