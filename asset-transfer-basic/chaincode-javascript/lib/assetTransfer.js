@@ -255,7 +255,6 @@ class AssetTransfer extends Contract {
             let record;
             try {
                 record = JSON.parse(strValue);
-                console.log(record);
                 if (record.docType && record.docType === "txnRanking") {
                     allResults.push(record);
                 }
