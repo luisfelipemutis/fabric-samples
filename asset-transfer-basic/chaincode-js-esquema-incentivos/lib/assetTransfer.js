@@ -28,8 +28,6 @@ class AssetTransfer extends Contract {
         return JSON.stringify(registro);
     }
 
-
-
     async GetRecordByDocType(ctx, paramDocType) {
         const allResults = [];
         // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.

@@ -1,4 +1,3 @@
-
 import * as grpc from '@grpc/grpc-js';
 import { connect, Contract, Identity, Signer, signers } from '@hyperledger/fabric-gateway';
 import * as crypto from 'crypto';
@@ -69,6 +68,8 @@ async function main(): Promise<void> {
         // Get the smart contract from the network.
         const contract = network.getContract(chaincodeName);
 
+        await createRecordTXN(contract);
+
         await GetAllRanking(contract);
 
         await GetAllChallenges(contract);
@@ -88,7 +89,7 @@ main().catch(error => {
 
 
 /*
-FUNCIÓN PARA CREAR UN REGISTRO DE QUE UN CANAL COMPLETO UN DESÁFIO.
+FUNCIÓN PARA CREAR UN REGISTRO DE UN CANAL QUE HA COMPLETO UN DESÁFIO.
 */
 async function createRecordTXN(contract: Contract): Promise<void> {
     console.log('\n--> Submit Transaction: createRecordTXN, creates new asset with IdDesafio and idCanal arguments');
@@ -100,11 +101,6 @@ async function createRecordTXN(contract: Contract): Promise<void> {
         '102',
         'desafio-1',
     );
-
-    const resultBytes = await contract.evaluateTransaction('GetAllRanking');
-    const resultJson = utf8Decoder.decode(resultBytes);
-    const result = JSON.parse(resultJson);
-    console.log('*** Result - Ranking:', result);
 
     console.log('*** Transaction committed successfully');
 }
@@ -121,7 +117,7 @@ async function GetAllRanking(contract: Contract): Promise<void> {
 
 
 async function GetAllChallenges(contract: Contract): Promise<void> {
-    console.log('\n--> Evaluate Transaction: GetAllChallenges, function returns all the current ranking on the ledger');
+    console.log('\n--> Evaluate Transaction: GetAllChallenges, function returns all the current challenges on the ledger');
 
     const resultBytes = await contract.evaluateTransaction('GetRecordByDocType', 'txnChallenge');
 
