@@ -7,11 +7,35 @@ const { Contract } = require('fabric-contract-api');
 
 class AssetTransfer extends Contract {
 
+
+    async createChallenge(ctx, id, nombre, desc, token) {
+        const exists = await this.challengeExists(ctx, id);
+        if (exists) {
+            throw new Error(`El desafío ${id} ya existe`);
+            }
+
+        const challenge = {
+            ID: id,
+            Nombre: nombre,
+            Descripcion: desc,
+            token: token
+        };
+        // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
+        await ctx.stub.putState(id, Buffer.from(stringify(sortKeysRecursive(challenge))));
+        return JSON.stringify(challenge);
+    }
+
+    async challengeExists(ctx, id) {
+        const desafioJSON = await ctx.stub.getState(id);
+        return desafioJSON && desafioJSON.length > 0;
+    }
+
+
     async createRecordTXN(ctx, idCanal, idDesafio) {
         console.log("\nLLego una petición para crear un registro al ranking");
         console.log(`Datos: -- idCanal: ${idCanal} idDesafio: ${idDesafio}\n`);
 
-        const exists = await this.desafioExists(ctx, idDesafio);
+        const exists = await this.challengeExists(ctx, idDesafio);
         if (!exists) {
             throw new Error(`El desafío con id: ${idDesafio} no existe..`);
         }
@@ -26,11 +50,6 @@ class AssetTransfer extends Contract {
         // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
         await ctx.stub.putState(idRegister, Buffer.from(stringify(sortKeysRecursive(registro))));
         return JSON.stringify(registro);
-    }
-
-    async desafioExists(ctx, id) {
-        const desafioJSON = await ctx.stub.getState(id);
-        return desafioJSON && desafioJSON.length > 0;
     }
 
     async GetRecordByDocType(ctx, paramDocType) {

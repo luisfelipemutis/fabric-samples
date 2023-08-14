@@ -103,6 +103,23 @@ async function createRecordTXN(contract: Contract): Promise<void> {
     console.log('*** Transaction committed successfully');
 }
 
+
+async function createChallenge(contract: Contract): Promise<void> {
+    console.log('\n--> Submit Transaction: createChallenge, creates new asset with ID, Color, Size, Owner and AppraisedValue arguments');
+
+    await contract.submitTransaction(
+        'createChallenge',
+        `asset${Date.now()}`,
+        'desafío test 001',
+        'descripcion 001',
+        '5 tokens',
+        '1300',
+    );
+
+    console.log('*** Transaction committed successfully');
+}
+
+
 async function GetAllRanking(contract: Contract): Promise<void> {
     console.log('\n--> Evaluate Transaction: GetAllRanking, function returns all the current ranking on the ledger');
 
