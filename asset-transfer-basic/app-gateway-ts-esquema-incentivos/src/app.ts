@@ -68,6 +68,8 @@ async function main(): Promise<void> {
         // Get the smart contract from the network.
         const contract = network.getContract(chaincodeName);
 
+        await createChallenge(contract);
+
         await createRecordTXN(contract);
 
         await GetAllRanking(contract);
