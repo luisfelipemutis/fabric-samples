@@ -111,7 +111,7 @@ async function createChallenge(contract: Contract): Promise<void> {
 
     await contract.submitTransaction(
         'createChallenge',
-        `asset${Date.now()}`,
+        `desafio-1`,
         'desafío test 001',
         'descripcion 001',
         '5 tokens'
