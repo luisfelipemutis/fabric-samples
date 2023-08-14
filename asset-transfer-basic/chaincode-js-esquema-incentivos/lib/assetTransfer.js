@@ -18,7 +18,8 @@ class AssetTransfer extends Contract {
             ID: id,
             Nombre: nombre,
             Descripcion: desc,
-            token: token
+            token: token,
+            docType: 'txnChallenge'
         };
         // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
         await ctx.stub.putState(id, Buffer.from(stringify(sortKeysRecursive(challenge))));
