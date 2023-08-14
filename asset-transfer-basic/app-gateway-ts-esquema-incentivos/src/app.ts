@@ -94,8 +94,6 @@ FUNCIÓN PARA CREAR UN REGISTRO DE UN CANAL QUE HA COMPLETO UN DESÁFIO.
 async function createRecordTXN(contract: Contract): Promise<void> {
     console.log('\n--> Submit Transaction: createRecordTXN, creates new asset with IdDesafio and idCanal arguments');
 
-    await contract.submitTransaction('InicializarDesafios');
-
     await contract.submitTransaction(
         'createRecordTXN',
         '102',
