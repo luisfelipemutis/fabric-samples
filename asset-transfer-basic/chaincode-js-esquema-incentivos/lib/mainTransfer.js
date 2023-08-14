@@ -5,7 +5,7 @@ const stringify  = require('json-stringify-deterministic');
 const sortKeysRecursive  = require('sort-keys-recursive');
 const { Contract } = require('fabric-contract-api');
 
-class MainTransfer extends Contract {
+class AssetTransfer extends Contract {
 
     async InitLedger(ctx) {
 
@@ -115,4 +115,4 @@ class MainTransfer extends Contract {
 }
 
 
-module.exports = MainTransfer;
+module.exports = AssetTransfer;
