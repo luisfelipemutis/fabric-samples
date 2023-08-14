@@ -69,17 +69,14 @@ async function main(): Promise<void> {
         // Get the smart contract from the network.
         const contract = network.getContract(chaincodeName);
 
-        // Initialize a set of asset data on the ledger using the chaincode 'InitLedger' function.
         await GetAllRanking(contract);
+
+        await GetAllChallenges(contract);
 
     } finally {
         gateway.close();
         client.close();
     }
-
-
-    //await GetAllRanking(contract);
-
 }
 
 main().catch(error => {
@@ -115,11 +112,22 @@ async function createRecordTXN(contract: Contract): Promise<void> {
 async function GetAllRanking(contract: Contract): Promise<void> {
     console.log('\n--> Evaluate Transaction: GetAllRanking, function returns all the current ranking on the ledger');
 
-    const resultBytes = await contract.evaluateTransaction('GetAllRanking');
+    const resultBytes = await contract.evaluateTransaction('GetRecordByDocType', 'txnRanking');
 
     const resultJson = utf8Decoder.decode(resultBytes);
     const result = JSON.parse(resultJson);
-    console.log('*** Ranking: \n', result);
+    console.log('*** Ranking: ----\n', result);
+}
+
+
+async function GetAllChallenges(contract: Contract): Promise<void> {
+    console.log('\n--> Evaluate Transaction: GetAllChallenges, function returns all the current ranking on the ledger');
+
+    const resultBytes = await contract.evaluateTransaction('GetRecordByDocType', 'txnChallenge');
+
+    const resultJson = utf8Decoder.decode(resultBytes);
+    const result = JSON.parse(resultJson);
+    console.log('*** Desafiós: ----\n', result);
 }
 
 
